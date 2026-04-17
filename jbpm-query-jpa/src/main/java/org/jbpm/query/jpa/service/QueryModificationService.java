@@ -16,9 +16,9 @@
 
 package org.jbpm.query.jpa.service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 
 import org.jbpm.query.jpa.data.QueryCriteria;
 import org.jbpm.query.jpa.data.QueryWhere;

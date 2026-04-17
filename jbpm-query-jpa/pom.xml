@@ -18,6 +18,14 @@
 
   <properties>
     <java.module.name>org.jbpm.query.jpa</java.module.name>
+    <!-- TODO MOVE -->
+    <version.jakarta.xml.bind-api>4.0.2</version.jakarta.xml.bind-api>
+    <version.jakarta.persistence-api>3.1.0</version.jakarta.persistence-api>
+<!--    <version.org.hibernate>6.2.38.Final</version.org.hibernate>-->
+<!--    <version.org.hibernate-4ee7>5.1.15.Final</version.org.hibernate-4ee7>-->
+<!--    <version.org.hibernate.commons.annotations>5.0.5.Final</version.org.hibernate.commons.annotations>-->
+<!--    <version.org.hibernate.hibernate-validator>4.1.0.Final</version.org.hibernate.hibernate-validator>-->
+<!--    <version.org.hibernate.validator>6.0.20.Final</version.org.hibernate.validator>-->
   </properties>
 
   <build>
@@ -31,10 +39,10 @@
             <filtering>true</filtering>
         </testResource>
     </testResources>
-    
+
     <plugins>
       <plugin>
-        <!--  ensure that db files are deleted before _any_ run 
+        <!--  ensure that db files are deleted before _any_ run
               otherwise we get tests failing because of leftover db's -->
         <artifactId>maven-clean-plugin</artifactId>
         <configuration>
@@ -69,13 +77,13 @@
       </plugin>
     </plugins>
   </build>
- 
+
   <dependencies>
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-internal</artifactId>
     </dependency>
-   
+
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
@@ -88,13 +96,13 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
     </dependency>
-  
+
     <dependency>
       <groupId>jakarta.persistence</groupId>
       <artifactId>jakarta.persistence-api</artifactId>
     </dependency>
-      
-    <!-- osgi -->    
+
+    <!-- osgi -->
     <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
@@ -112,24 +120,37 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- logging --> 
+    <!-- logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
-    
+
     <!-- TEST -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <scope>test</scope>
     </dependency>
-   
+
     <dependency>
       <groupId>org.jbpm</groupId>
       <artifactId>jbpm-test-util</artifactId>
       <scope>test</scope>
     </dependency>
+    <!--TODO Rimuovere e spostare nel Parent e risolvere enforcing-->
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>4.0.5</version>
+      <scope>test</scope>
+    </dependency>
+      <dependency>
+          <groupId>jakarta.activation</groupId>
+          <artifactId>jakarta.activation-api</artifactId>
+          <version>2.1.0</version>
+          <scope>test</scope>
+      </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
@@ -140,6 +161,14 @@
           <groupId>javax.xml.bind</groupId>
           <artifactId>jaxb-api</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>jakarta.xml.bind</groupId>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+        </exclusion>
+      <exclusion>
+          <groupId>org.glassfish.jaxb</groupId>
+          <artifactId>jaxb-runtime</artifactId>
+      </exclusion>
       </exclusions>
     </dependency>
 

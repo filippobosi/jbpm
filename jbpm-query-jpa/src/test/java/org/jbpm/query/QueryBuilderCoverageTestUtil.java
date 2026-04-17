@@ -37,7 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 
 //import org.hibernate.tool.hbm2ddl.DatabaseMetadata;
 import org.kie.internal.query.ExtendedParametrizedQueryBuilder;
