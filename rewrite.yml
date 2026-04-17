@@ -1,0 +1,117 @@
+# OpenRewrite configuration for the jBPM Jakarta migration.
+#
+# Notes:
+# - This file is intentionally wave-oriented. Use Maven `-pl` to restrict the run.
+# - The Jakarta recipe names used here are aligned with the official OpenRewrite
+#   catalog in rewrite-migrate-java.
+# - Because this repository inherits versions from external parents/BOMs, the
+#   rewrite run may update imports before the resolved dependency versions are
+#   truly Jakarta-compatible. Dependency convergence must still be checked.
+#
+# Suggested dry run from repository root:
+#   mvn org.openrewrite.maven:rewrite-maven-plugin:dryRun \
+#     -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:3.29.0 \
+#     -Drewrite.configLocation=/Users/lacquaviva/Lavoro/progetti/CRIF/jbpm/rewrite.yml \
+#     -Drewrite.activeRecipes=org.jbpm.rewrite.JakartaWave1 \
+#     -pl jbpm-persistence,jbpm-query-jpa,jbpm-audit,jbpm-runtime-manager
+#
+# Suggested apply run after review:
+#   mvn org.openrewrite.maven:rewrite-maven-plugin:run \
+#     -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:3.29.0 \
+#     -Drewrite.configLocation=/Users/lacquaviva/Lavoro/progetti/CRIF/jbpm/rewrite.yml \
+#     -Drewrite.activeRecipes=org.jbpm.rewrite.JakartaWave1 \
+#     -pl jbpm-persistence,jbpm-query-jpa,jbpm-audit,jbpm-runtime-manager
+#
+# Java 17 cleanup should happen only after Jakarta stabilization:
+#   mvn org.openrewrite.maven:rewrite-maven-plugin:run \
+#     -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:3.29.0 \
+#     -Drewrite.configLocation=/Users/lacquaviva/Lavoro/progetti/CRIF/jbpm/rewrite.yml \
+#     -Drewrite.activeRecipes=org.jbpm.rewrite.Java17PostJakarta \
+#     -pl <target-modules>
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jbpm.rewrite.JakartaBase
+displayName: jBPM Jakarta base migration
+description: >
+  Base OpenRewrite recipe for the jBPM repository. This recipe focuses on the
+  namespace and dependency migration to Jakarta EE 9 and is intended to be run
+  incrementally by module wave.
+recipeList:
+  - org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta
+
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jbpm.rewrite.JakartaWave1
+displayName: jBPM Jakarta migration - Wave 1
+description: >
+  Use this recipe for the first migration wave:
+  jbpm-persistence, jbpm-query-jpa, jbpm-audit, jbpm-runtime-manager.
+  Limit execution to Wave 1 modules using Maven -pl.
+recipeList:
+  - org.jbpm.rewrite.JakartaBase
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jbpm.rewrite.JakartaWave2
+displayName: jBPM Jakarta migration - Wave 2
+description: >
+  Use this recipe for the second migration wave:
+  jbpm-human-task, jbpm-services, jbpm-case-mgmt.
+  Limit execution to Wave 2 modules using Maven -pl.
+recipeList:
+  - org.jbpm.rewrite.JakartaBase
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jbpm.rewrite.JakartaWave3
+displayName: jBPM Jakarta migration - Wave 3
+description: >
+  Use this recipe for the third migration wave:
+  jbpm-workitems, jbpm-xes, jbpm-document, jbpm-event-emitters,
+  jbpm-flow, jbpm-bpmn2, jbpm-flow-builder.
+  Limit execution to Wave 3 modules using Maven -pl.
+recipeList:
+  - org.jbpm.rewrite.JakartaBase
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jbpm.rewrite.JakartaWave4
+displayName: jBPM Jakarta migration - Wave 4
+description: >
+  Use this recipe for test-support modules after the runtime waves are stable:
+  jbpm-test, jbpm-test-util, jbpm-test-coverage.
+recipeList:
+  - org.jbpm.rewrite.JakartaBase
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jbpm.rewrite.JakartaWave5
+displayName: jBPM Jakarta migration - Wave 5
+description: >
+  Use this recipe for the highest-risk environment-facing modules last:
+  jbpm-container-test, jbpm-distribution, jbpm-installer, jbpm-examples.
+recipeList:
+  - org.jbpm.rewrite.JakartaBase
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jbpm.rewrite.Java17PostJakarta
+displayName: jBPM Java 17 cleanup after Jakarta migration
+description: >
+  Apply this recipe only after a module wave has already been migrated to
+  Jakarta and validated. This separates namespace migration from JDK 17 cleanup.
+recipeList:
+  - org.openrewrite.java.migrate.UpgradeToJava17
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jbpm.rewrite.JakartaAndJava17
+displayName: jBPM Jakarta plus Java 17 modernization
+description: >
+  Convenience recipe for controlled experiments only. Prefer running the Jakarta
+  recipe first and Java 17 cleanup second in normal execution.
+recipeList:
+  - org.jbpm.rewrite.JakartaBase
+  - org.jbpm.rewrite.Java17PostJakarta
