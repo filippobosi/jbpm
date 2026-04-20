@@ -73,7 +73,7 @@ public class CaseInstanceView implements InstanceView<ProcessInstance> {
     
     public CaseInstanceView(ProcessInstance source) {
         this.source = source;
-        this.id = source.getId();
+        this.id = Long.valueOf(source.getId());
     }
     
     public String getCompositeId() {
@@ -207,8 +207,8 @@ public class CaseInstanceView implements InstanceView<ProcessInstance> {
         this.containerId = ((WorkflowProcessInstance)source).getDeploymentId();
         this.caseId = ((WorkflowProcessInstanceImpl)source).getCorrelationKey();
         this.date = new Date();
-        this.id = source.getId();        
-        this.parentId = source.getParentProcessInstanceId();
+        this.id = Long.valueOf(source.getId());
+        this.parentId = Long.valueOf(source.getParentProcessInstanceId());
         this.caseDefinitionId = source.getProcessId();
         this.caseDescription = ((WorkflowProcessInstanceImpl)source).getDescription();
         this.caseDefinitionName = source.getProcessName();

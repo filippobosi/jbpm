@@ -21,19 +21,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.transaction.UserTransaction;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.transaction.UserTransaction;
 
 import org.drools.core.base.MapGlobalResolver;
 import org.drools.core.impl.EnvironmentFactory;
-import org.drools.core.impl.KnowledgeBaseFactory;
 import org.h2.tools.DeleteDbFiles;
 import org.h2.tools.Server;
 import org.jbpm.process.instance.event.DefaultSignalManagerFactory;
 import org.jbpm.process.instance.impl.DefaultProcessInstanceManagerFactory;
 import org.junit.Assert;
 import org.kie.api.KieBase;
+import org.kie.api.KieServices;
 import org.kie.api.runtime.Environment;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.KieSessionConfiguration;
@@ -329,7 +329,7 @@ public class PersistenceUtil {
                DefaultSignalManagerFactory.class.getName());
        defaultProps.setProperty("drools.processInstanceManagerFactory",
                DefaultProcessInstanceManagerFactory.class.getName());
-       KieSessionConfiguration ksconf = KnowledgeBaseFactory.newKnowledgeSessionConfiguration(defaultProps);
+       KieSessionConfiguration ksconf = KieServices.Factory.get().newKieSessionConfiguration(defaultProps);
        ksconf.setOption(ForceEagerActivationOption.YES);
                
        return kbase.newKieSession(ksconf, createEnvironment(context));
