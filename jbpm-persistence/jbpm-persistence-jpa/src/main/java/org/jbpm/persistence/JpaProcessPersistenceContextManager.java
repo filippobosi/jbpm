@@ -17,7 +17,7 @@
 package org.jbpm.persistence;
 
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 import org.drools.persistence.jpa.JpaPersistenceContextManager;
 import org.jbpm.persistence.api.ProcessPersistenceContext;

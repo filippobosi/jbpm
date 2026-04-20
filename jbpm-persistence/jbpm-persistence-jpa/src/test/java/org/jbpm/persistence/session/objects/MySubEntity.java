@@ -16,7 +16,7 @@
 
 package org.jbpm.persistence.session.objects;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 @Entity
 public class MySubEntity extends MyEntity {

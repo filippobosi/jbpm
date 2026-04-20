@@ -29,10 +29,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.InitialContext;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.transaction.UserTransaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
+import jakarta.transaction.UserTransaction;
 
 import org.jbpm.test.util.AbstractBaseTest;
 import org.junit.After;

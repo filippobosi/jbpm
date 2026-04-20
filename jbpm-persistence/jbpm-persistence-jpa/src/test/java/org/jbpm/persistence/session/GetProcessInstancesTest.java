@@ -31,7 +31,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.naming.InitialContext;
-import javax.transaction.UserTransaction;
+import jakarta.transaction.UserTransaction;
 
 import org.jbpm.persistence.processinstance.JPAProcessInstanceManager;
 import org.jbpm.ruleflow.instance.RuleFlowProcessInstance;

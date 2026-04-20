@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 
 import org.drools.persistence.jta.JtaTransactionManager;
 import org.jbpm.test.persistence.util.PersistenceUtil;
